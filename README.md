@@ -3,6 +3,12 @@
 A collection of small command line utilities, as a fat binary.
 
 
+#### count-bytes
+
+`count-bytes` shows the human-scale bytes of an input (e.g. `3.2GB`),
+and how well it compresses under a quick compression algorithm
+
+
 #### sortuniq
 
 [`sortuniq`](src/sortuniq/README.md) provides optimised versions of various `| sort | uniq`

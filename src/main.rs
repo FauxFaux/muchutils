@@ -4,14 +4,17 @@ use std::path::Path;
 
 use anyhow::Result;
 
+mod count_bytes;
 mod sortuniq;
 
+use count_bytes::run as count_bytes;
 use sortuniq::run as sortuniq;
 
 fn maybe_run(name: &OsStr, args: &mut ArgsOs) -> Option<Result<u8>> {
     match name.to_str() {
         Some("true") => Some(Ok(0)),
         Some("false") => Some(Ok(1)),
+        Some("count-bytes") => Some(count_bytes()),
         Some("sortuniq") => Some(sortuniq(args).map(|()| 0u8)),
         _ => None,
     }
@@ -20,6 +23,11 @@ fn maybe_run(name: &OsStr, args: &mut ArgsOs) -> Option<Result<u8>> {
 fn wrapper_main(us: &OsStr) -> Result<u8> {
     eprintln!("usage: {:?} [subcommand]", us);
     eprintln!("Or, invoke with the binary name set (e.g. by symlink)");
+    eprintln!();
+    eprintln!("known subcommands:");
+    eprintln!("  count-bytes: human representation of a byte number, and compression ratio");
+    eprintln!("     sortuniq: various `| sort | uniq` constructions");
+    eprintln!("  true, false: return 0/1");
     Ok(2)
 }
 
