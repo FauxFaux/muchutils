@@ -4,10 +4,15 @@ use std::path::Path;
 
 use anyhow::Result;
 
+mod sortuniq;
+
+use sortuniq::run as sortuniq;
+
 fn maybe_run(name: &OsStr, args: &mut ArgsOs) -> Option<Result<u8>> {
     match name.to_str() {
         Some("true") => Some(Ok(0)),
         Some("false") => Some(Ok(1)),
+        Some("sortuniq") => Some(sortuniq(args).map(|()| 0u8)),
         _ => None,
     }
 }
